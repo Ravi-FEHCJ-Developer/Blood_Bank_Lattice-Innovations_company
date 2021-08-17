@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>BLOOD BANK</h1>
+  <hr>
+    <div class=" d-flex flex-wrap justify-content-between">
+      <div *ngFor="let item of Blood_bottles" class="example-box bg d-flex flex-wrap justify-content-between" cdkDrag>
+          <div class=" blood_group gray {{item.className}} border"><h4>{{ item.bg }}</h4></div>
+          <div class="blood_quantity border" ><h4>{{ item.count }}</h4></div>
+      </div>
+  </div>
+  <h1>REQUIREMENT FORM</h1>
+  <div class="row">
+      <hr>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6 ">
+          <div class="col-md-12">
+            <div class="title border" >
+              <h4>
+                Blood required
+              </h4>
+            </div>
+            <div class="value" >
+              <select (change)="onChange($event)">
+                  <option *ngFor="let item of Blood_bottles"  value={{item.className}}>{{ item.bg }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="title" >
+              <h4>
+                Number of bottles
+              </h4>
+            </div>
+            <div class="value" >
+              <select>
+                <option *ngFor="let item of Blood_bottles" value={{item.count}}>{{ item.count }}</option>
+            </select>
+            </div>
+          </div>  
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5 col-sm-6 col-xs-6 ">
+          <div class="row h-100">
+            <div class="col-md-1 h-100"></div>
+            <div class="col-md-8 bucket h-100"></div>
+            <div class="col-md-1 h-100"></div>
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
