@@ -1,9 +1,12 @@
 <div class="container">
   <h1>BLOOD BANK</h1>
   <hr>
-    <div class=" d-flex flex-wrap justify-content-between">
-      <div *ngFor="let item of Blood_bottles" class="example-box bg d-flex flex-wrap justify-content-between" cdkDrag>
-          <div class=" blood_group gray {{item.className}} border"><h4>{{ item.bg }}</h4></div>
+    <div class=" d-flex flex-wrap justify-content-between" >
+      <div *ngFor="let item of Blood_bottles" class="example-box bg d-flex flex-wrap justify-content-between"  
+      cdkDrag  
+
+      >
+          <div  class=" blood_group gray {{item.className}} border"><h4>{{ item.bg }}</h4></div>
           <div class="blood_quantity border" ><h4>{{ item.count }}</h4></div>
       </div>
   </div>
@@ -31,7 +34,7 @@
               </h4>
             </div>
             <div class="value" >
-              <select>
+              <select (change)="onChangenumberofbottles($event)">
                 <option *ngFor="let item of Blood_bottles" value={{item.count}}>{{ item.count }}</option>
             </select>
             </div>

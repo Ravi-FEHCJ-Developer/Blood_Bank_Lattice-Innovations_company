@@ -6,6 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
+import {MatListModule} from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // import {MatSelectModule} from '@angular/material/select';
 
@@ -14,6 +19,11 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     AppComponent
   ],
   imports: [
+    MatExpansionModule,
+    MatListModule,
+    CdkStepperModule,
+    CdkTableModule,
+    CdkTreeModule,
     CommonModule,
     BrowserModule,
     DragDropModule,
