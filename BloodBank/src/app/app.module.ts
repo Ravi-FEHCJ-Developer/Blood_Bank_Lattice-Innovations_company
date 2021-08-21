@@ -1,35 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AppComponent } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {CdkStepperModule} from '@angular/cdk/stepper';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
-import {MatListModule} from '@angular/material/list';
-import { MatExpansionModule } from '@angular/material/expansion';
-
-// import {MatSelectModule} from '@angular/material/select';
+import {
+  MatListModule
+} from '@angular/material/list';
+import {AppComponent} from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  exports: [
+    // cdk
+  DragDropModule,
+    // Material
+    MatListModule
+  ]
+})
+export class MaterialModule {}
+
+@NgModule({
   imports: [
-    MatExpansionModule,
-    MatListModule,
-    CdkStepperModule,
-    CdkTableModule,
-    CdkTreeModule,
-    CommonModule,
     BrowserModule,
-    DragDropModule,
+    CommonModule,
+    MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: []
 })
-export class AppModule { }
+export class AppModule {}
