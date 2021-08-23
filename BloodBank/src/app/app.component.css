@@ -148,6 +148,12 @@ h1
   outline: none;
 }
 
+.box select option
+{
+  padding: 5px;
+}
+
+
 .box::before {
   content: "\f13a";
   font-family: FontAwesome;
