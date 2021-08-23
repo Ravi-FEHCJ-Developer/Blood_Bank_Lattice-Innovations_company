@@ -2,7 +2,7 @@
 <div class="container">
   <h1>BLOOD BANK</h1>
   <hr>
-  <div class=" d-flex flex-wrap justify-content-between"
+  <div class="inside_container"
   cdkDropList 
   #allbloodgroup="cdkDropList"
   cdkDropListConnectedTo="selectedbloodgroup">
@@ -10,6 +10,7 @@
       cdkDrag 
       *ngFor="let item of Blood_bottles" 
       [cdkDragData]="item"
+      (cdkDragStarted)="dragStart($event)"
       class="Blood_Group_content bg d-flex flex-wrap justify-content-between" >
     
       <span class="blood_group gray {{item.className}} border">
@@ -27,33 +28,35 @@
   <div class="row">
     <hr>
     <div class="row">
-      <div class="col-md-6 col-sm-6 col-xs-6 ">
+      <div class="col-md-6">
         <div class="col-md-12">
-          <div class="col-md-8 title border">
+          <div class="col-md-8 col-sm-8 col-xs-8 title border">
             <h4>
               Blood required
             </h4>
           </div>
-          <div class="col-md-4 value">
+          <div class="col-md-4 col-sm-4 col-xs-4 value">
             <div class="box">
               <select (change)="onChange($event)">
-                <option *ngFor="let item of Blood_bottles" value={{item.className}}>{{ item.bg }}</option>
+                <option>Select</option>
+                <option  *ngFor="let item of Blood_bottles" value={{item.className}}>{{ item.bg }}</option>
               </select>
             </div>  
 
           </div>
         </div>
         <div class="col-md-12">
-          <div class="col-md-8 title">
+          <div class="col-md-8  col-sm-8 col-xs-8 title">
             <h4>
               Number of bottles
             </h4>
           </div>
-          <div class="col-md-4 value">
+          <div class="col-md-4 col-sm-4 col-xs-4 value">
             
             <div class="box ">
               <select (change)="onChangenumberofbottles($event)">
-                <option *ngFor="let item of Blood_bottles" value={{item.count}}>{{ item.count }}</option>
+                <option>Select</option>
+                <option *ngFor="let item of select_bootles ; let i = index" value={{item}}>{{ item }}</option>
               </select>
             </div> 
 
@@ -61,7 +64,7 @@
         </div>
       </div>
       <div class="col-md-1"></div>
-      <div class="col-md-5 col-sm-6 col-xs-6 ">
+      <div class="col-md-5 col-sm-12 col-xs-12 ">
         <div class="row h-100">
           <div 
             class="col-md-12 bucket" 
@@ -71,7 +74,7 @@
             
             <div 
               *ngFor="let field of Resultfields" 
-              class="Blood_Group_content_result bg d-flex flex-wrap justify-content-between">
+              class="Blood_Group_content_result bg">
 
               <div class=" blood_group gray">
                 <h4>{{ field.bg }}</h4>
@@ -81,6 +84,9 @@
                 <h4>{{ selected_Blood_Bootle }}</h4>
               </div>
             
+            </div>
+            <div class="hiden w-100 d-flex align-items-center justify-content-center">
+              <h2 class="text-center text-capitalize">Drag & Drop Blood Group Here</h2>
             </div>
           </div>
         </div>

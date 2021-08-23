@@ -18,9 +18,14 @@ declare var $: any;
 export class AppComponent 
 {
 
+  // remaining bottle 
   remaining_bottle: any;
   
+  // Result store array
   Resultfields: any[] = [];
+
+  // Bottle Counter
+  select_bootles : any[] = [];
 
   
   // BB repository
@@ -49,37 +54,67 @@ export class AppComponent
         let a = '.' + (event.target as HTMLInputElement).value;
         $(a).addClass('highlight');
         $(a)
-          .parent()
+        .parent()
           .siblings()
           .children()
           .removeClass('highlight');
+          
+          this.pos = this.Blood_bottles.map(function (e) {
+            return e.className;
+          }).indexOf((event.target as HTMLInputElement).value);
+        }
 
-        this.pos = this.Blood_bottles.map(function (e) {
-          return e.className;
-        }).indexOf((event.target as HTMLInputElement).value);
+        // Bottle Counter
+        this.bottlecounter(this.Blood_bottles[this.pos].count);
       }
-    }
 
-  // Get Selected Blood Group Bottles Using Select Option
-    onChangenumberofbottles(event: Event) 
-    {
-      this.remaining_bottle = this.Blood_bottles[this.pos].count - parseInt((event.target as HTMLInputElement).value);
-    }
-
-
-  // Store the remaining bootles count in the repository of slected blood group 
-    Store_Remaining_bottle() 
-    {
-      this.Blood_bottles[this.pos].count = this.remaining_bottle;
-    }
-  
-  
-  // Angular material CDKDropList library to use drop and drag functionality.
-    drop(event: CdkDragDrop<any[]>) 
-    {
-      this.Resultfields = [];
-      this.addField(event.item.data, event.currentIndex);
-    }
+      bottlecounter(select_bootles:number)
+      {
+        for(let i = 1; i <= select_bootles; i++)
+        {
+          this.select_bootles.push(i);
+        }
+      }
+      
+    // Get Selected Blood Group Bottles Using Select Option
+      onChangenumberofbottles(event: Event) 
+      {
+        if( parseInt((event.target as HTMLInputElement).value) < 1 || parseInt((event.target as HTMLInputElement).value) > this.Blood_bottles[this.pos].count )
+        {
+          alert( this.Blood_bottles[this.pos].bg + " Blood Group has only " + this.Blood_bottles[this.pos].count +  " number of bottles in Blood Bank" );
+        }
+        else
+        {
+          this.remaining_bottle = this.Blood_bottles[this.pos].count - parseInt((event.target as HTMLInputElement).value);
+        }
+        
+      }
+      
+      
+    // Store the remaining bootles count in the repository of slected blood group 
+      Store_Remaining_bottle() 
+      {
+        this.Blood_bottles[this.pos].count = this.remaining_bottle;
+      }
+      
+      
+      dragStart(event: CdkDragStart) 
+      {
+        $(".bucket").addClass('bucket_shadow');
+        $(".hiden h2").addClass('drag_text');
+      }
+      
+      
+      
+    // Angular material CDKDropList library to use drop and drag functionality.
+      drop(event: CdkDragDrop<any[]>) 
+      {
+        this.Resultfields = [];
+        $(".bucket").removeClass('bucket_shadow');
+        $(".hiden h2").removeClass('drag_text');
+        $(".hiden h2").addClass('drop_text');
+        this.addField(event.item.data, event.currentIndex);
+      }
 
   
   selected_Blood_Bootle : number = 0;
