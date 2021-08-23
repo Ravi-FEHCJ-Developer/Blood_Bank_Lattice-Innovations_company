@@ -1,20 +1,21 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {  BrowserModule } from '@angular/platform-browser';
+import {  NgModule } from '@angular/core';
+import {  CommonModule } from '@angular/common';
 
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {
-  MatListModule
-} from '@angular/material/list';
-import {AppComponent} from './app.component';
+import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  AppComponent } from './app.component';
 
+import {  DragDropModule } from '@angular/cdk/drag-drop';
+import {  MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   exports: [
     // cdk
-  DragDropModule,
+    DragDropModule,
     // Material
-    MatListModule
+    MatListModule,
+    // select option
+    MatSelectModule
   ]
 })
 export class MaterialModule {}

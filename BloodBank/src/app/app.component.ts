@@ -15,13 +15,12 @@ declare var $: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent 
-{
+export class AppComponent {
 
   @ViewChild(MatList, { read: ElementRef }) child: ElementRef | any;
 
-  _currentIndex : any;
-  _currentField : any;
+  _currentIndex: any;
+  _currentField: any;
 
   remaining_bottle: any;
 
@@ -38,9 +37,12 @@ export class AppComponent
 
   pos: number = 0;
   onChange(event: Event) {
-    if ((event.target as HTMLInputElement).value === 'select') {
+    if ((event.target as HTMLInputElement).value === 'select') 
+    {
       alert('select blood group properly');
-    } else {
+    } 
+    else 
+    {
       let a = '.' + (event.target as HTMLInputElement).value;
       $(a).addClass('highlight');
       $(a)
@@ -52,66 +54,61 @@ export class AppComponent
         el => el.className === (event.target as HTMLInputElement).value
       );
       // console.log(found);
-      this.pos = this.Blood_bottles.map(function(e) {
+      this.pos = this.Blood_bottles.map(function (e) {
         return e.className;
       }).indexOf((event.target as HTMLInputElement).value);
     }
   }
-  onChangenumberofbottles(event: Event) {
-    this.remaining_bottle =
-      this.Blood_bottles[this.pos].count -
-      parseInt((event.target as HTMLInputElement).value);
-    // console.log('remaining_bottle = ' + this.remaining_bottle);
+
+  onChangenumberofbottles(event: Event) 
+  {
+    // console.log(" remaining_bottle = ")
+    this.remaining_bottle = this.Blood_bottles[this.pos].count - parseInt((event.target as HTMLInputElement).value);
+    // console.log(" remaining_bottle = " + this.remaining_bottle)
   }
 
-  Store_Remaining_bottle() {
+  Store_Remaining_bottle() 
+  {
     this.Blood_bottles[this.pos].count = this.remaining_bottle;
   }
 
-  fields : any[] = [];
+  fields: any[] = [];
 
-  dragStart(event: CdkDragStart) 
-  {
-    console.log("pick up")
-    this._currentIndex = this.Blood_bottles.indexOf(event.source.data); // Get index of dragged type
-    this._currentField = this.child.nativeElement.children[this._currentIndex]; // Store HTML field
-  }
+  // dragStart(event: CdkDragStart) {
+    // console.log("pick up")
+    // this._currentIndex = this.Blood_bottles.indexOf(event.source.data); 
+    // Get index of dragged type
+    // this._currentField = this.child.nativeElement.children[this._currentIndex]; 
+    // Store HTML field
+  // }
 
-  moved(event: CdkDragMove) 
-  {
-    console.log("moving")
+  // moved(event: CdkDragMove) {
+  //   console.log("moving")
     // Check if stored HTML field is as same as current field
-    if (
-      this.child.nativeElement.children[this._currentIndex] !==
-      this._currentField
-    ) {
+    // if (
+    //   this.child.nativeElement.children[this._currentIndex] !==
+    //   this._currentField
+    // ) {
       // Replace current field, basically replaces placeholder with old HTML content
-      this.child.nativeElement.replaceChild(
-        this._currentField,
-        this.child.nativeElement.children[this._currentIndex]
-      );
-    }
-  }
+  //     this.child.nativeElement.replaceChild(
+  //       this._currentField,
+  //       this.child.nativeElement.children[this._currentIndex]
+  //     );
+  //   }
+  // }
 
   drop(event: CdkDragDrop<any[]>) 
   {
     this.fields = [];
-    if (event.previousContainer === event.container) 
-    {
-      console.log("IF dropped")
-      moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
-    } else {
-      console.log("ELSE dropped")
-      console.log(event.item.data)
-      console.log(event.currentIndex)
-      this.addField(event.item.data, event.currentIndex);
-    }
+    this.addField(event.item.data, event.currentIndex);
   }
 
+  
+  selected_Blood_Bootle : number = 0;
   addField(fieldType: any, index: number) 
   {
-    console.log("adding")
-    this.fields.splice(index, 0, fieldType);
-    this.Store_Remaining_bottle();
+    this.selected_Blood_Bootle = this.Blood_bottles[this.pos].count - this.remaining_bottle;
+    this.fields.push(fieldType);
+    this.Store_Remaining_bottle()
   }
 }

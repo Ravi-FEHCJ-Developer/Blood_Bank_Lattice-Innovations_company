@@ -5,14 +5,13 @@
   <mat-list class=" d-flex flex-wrap justify-content-between"
   cdkDropList 
   #allbloodgroup="cdkDropList"
-  cdkDropListConnectedTo="selectedbloodgroup"
-  (cdkDropListDropped)="drop($event)">
+  cdkDropListConnectedTo="selectedbloodgroup">
     <div 
       cdkDrag 
       *ngFor="let item of Blood_bottles" 
       [cdkDragData]="item"
       class="Blood_Group_content bg d-flex flex-wrap justify-content-between" >
-
+    
       <span class="blood_group gray {{item.className}} border">
         {{ item.bg }}
       </span>
@@ -30,29 +29,34 @@
     <div class="row">
       <div class="col-md-6 col-sm-6 col-xs-6 ">
         <div class="col-md-12">
-          <div class="title border">
+          <div class="col-md-8 title border">
             <h4>
               Blood required
             </h4>
           </div>
-          <div class="value">
-            <select (change)="onChange($event)">
-            <option value="select">Select</option>
-              <option *ngFor="let item of Blood_bottles"  value={{item.className}}>{{ item.bg }}</option>
-          </select>
+          <div class="col-md-4 value">
+            <div class="box">
+              <select (change)="onChange($event)">
+                <option *ngFor="let item of Blood_bottles" value={{item.className}} style="color: black;">{{ item.bg }}</option>
+              </select>
+            </div>  
+
           </div>
         </div>
         <div class="col-md-12">
-          <div class="title">
+          <div class="col-md-8 title">
             <h4>
               Number of bottles
             </h4>
           </div>
-          <div class="value">
-            <select (change)="onChangenumberofbottles($event)">
-            <option value="select">Select</option>
-            <option *ngFor="let item of Blood_bottles" value={{item.count}}>{{ item.count }}</option>
-        </select>
+          <div class="col-md-4 value">
+            
+            <div class="box ">
+              <select (change)="onChangenumberofbottles($event)">
+                <option *ngFor="let item of Blood_bottles" value={{item.count}} style="color: black;">{{ item.count }}</option>
+              </select>
+            </div> 
+
           </div>
         </div>
       </div>
@@ -63,19 +67,18 @@
             class="col-md-12 bucket" 
             cdkDropList 
             id="selectedbloodgroup"
-            [cdkDropListData]="fields"
             (cdkDropListDropped)="drop($event)">
             
             <div 
               *ngFor="let field of fields" 
               class="Blood_Group_content_result bg d-flex flex-wrap justify-content-between">
-              
+
               <div class=" blood_group gray">
                 <h4>{{ field.bg }}</h4>
               </div>
               
-              <div class="blood_quantity ">
-                <h4>{{ field.count }}</h4>
+              <div class="blood_quantity">
+                <h4>{{ selected_Blood_Bootle }}</h4>
               </div>
             
             </div>
