@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatList } from '@angular/material/list';
 import {
   CdkDragStart,
-  CdkDragMove,
-  CdkDragDrop,
-  moveItemInArray,
-  copyArrayItem
+  CdkDragDrop
 } from '@angular/cdk/drag-drop';
+import {  NgForm, NgModel } from '@angular/forms';
 
 declare var $: any;
 
@@ -15,8 +13,20 @@ declare var $: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent 
+
+export class AppComponent implements OnInit
 {
+  
+  ngOnInit() 
+  {
+    if(this.Blood_bottles.length === 0)
+    {
+      $(document).ready(function(){
+        $(".userform").css("display", "none");
+      });
+    }
+  }
+
 
   // remaining bottle 
   remaining_bottle: any;
@@ -27,25 +37,34 @@ export class AppComponent
   // Bottle Counter
   select_bootles : any[] = [];
 
+  // newRepo: any[]=[]
+
+  // getbg : string = ""
   
   // BB repository
-    Blood_bottles = 
-    [
-      { bg: 'A+', count: 2, className: 'Aplus' },
-      { bg: 'B+', count: 5, className: 'Bplus' },
-      { bg: 'AB+', count: 6, className: 'ABplus' },
-      { bg: 'O+', count: 7, className: 'Oplus' },
-      { bg: 'A-', count: 2, className: 'Aminus' },
-      { bg: 'B-', count: 1, className: 'Bminus' },
-      { bg: 'AB-', count: 2, className: 'ABminus' },
-      { bg: 'O-', count: 2, className: 'Ominus' }
-    ];
+  Blood_bottles : any[] = [];
 
+  CreateRepository(form:NgForm)
+  {
+    let splitedData = form.value.bloodgroup.split(' ');
+    const NewData = 
+    {
+      bg : splitedData[0],
+      count : form.value.bloodgroupbootle,
+      className : splitedData[1]
+    }
+    this.Blood_bottles.push(NewData);
+    $(document).ready(function(){
+      $(".userform").css("display", "block");
+    });  
+  }  
+  
 
   // Get Selected Blood Group Using Select Option
     pos: number = 0;
-    onChange(event: Event) {
-      if ((event.target as HTMLInputElement).value === 'select') 
+    onChange(event: Event) 
+    {
+      if ((event.target as HTMLInputElement).value === 'Select') 
       {
         alert('select blood group properly');
       } 
@@ -53,43 +72,49 @@ export class AppComponent
       {
         let a = '.' + (event.target as HTMLInputElement).value;
         $(a).addClass('highlight');
-        $(a)
-        .parent()
-          .siblings()
-          .children()
-          .removeClass('highlight');
-          
-          this.pos = this.Blood_bottles.map(function (e) {
-            return e.className;
-          }).indexOf((event.target as HTMLInputElement).value);
-        }
+        $(a).parent().siblings().children().removeClass('highlight');
+  
+        // get the position of blood group            
+        // map gets all the classname and indexof find the index of reuired classname 
+        this.pos = this.Blood_bottles.map(function (e) 
+        {
+          return e.className;
+        }).indexOf((event.target as HTMLInputElement).value);
+
+      }
 
         // Bottle Counter
         this.bottlecounter(this.Blood_bottles[this.pos].count);
-      }
+    }
 
-      bottlecounter(select_bootles:number)
+
+
+    // show nmbr of bootles a blood group have
+    bottlecounter(select_bootles:number)
+    {
+      for(let i = 1; i <= select_bootles; i++)
       {
-        for(let i = 1; i <= select_bootles; i++)
-        {
-          this.select_bootles.push(i);
-        }
+        this.select_bootles.push(i);
       }
+    }
       
+
+
     // Get Selected Blood Group Bottles Using Select Option
       onChangenumberofbottles(event: Event) 
       {
-        if( parseInt((event.target as HTMLInputElement).value) < 1 || parseInt((event.target as HTMLInputElement).value) > this.Blood_bottles[this.pos].count )
+        if ((event.target as HTMLInputElement).value === 'Select') 
         {
-          alert( this.Blood_bottles[this.pos].bg + " Blood Group has only " + this.Blood_bottles[this.pos].count +  " number of bottles in Blood Bank" );
-        }
-        else
+          alert('select Number of Bottles properly');
+        } 
+        else 
         {
-          this.remaining_bottle = this.Blood_bottles[this.pos].count - parseInt((event.target as HTMLInputElement).value);
+           this.remaining_bottle = this.Blood_bottles[this.pos].count - parseInt((event.target as HTMLInputElement).value);
         }
-        
       }
       
+
+
       
     // Store the remaining bootles count in the repository of slected blood group 
       Store_Remaining_bottle() 
@@ -113,13 +138,13 @@ export class AppComponent
         $(".bucket").removeClass('bucket_shadow');
         $(".hiden h2").removeClass('drag_text');
         $(".hiden h2").addClass('drop_text');
-        this.addField(event.item.data, event.currentIndex);
+        this.addField(event.item.data);
       }
 
   
   selected_Blood_Bootle : number = 0;
   // push the selected data to new array Resultfields  
-    addField(fieldType: any, index: number) 
+    addField(fieldType: any) 
     {
       this.selected_Blood_Bootle = this.Blood_bottles[this.pos].count - this.remaining_bottle;
       this.Resultfields.push(fieldType);

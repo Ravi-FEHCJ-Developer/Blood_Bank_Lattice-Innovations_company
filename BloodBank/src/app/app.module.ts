@@ -6,16 +6,16 @@ import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  AppComponent } from './app.component';
 
 import {  DragDropModule } from '@angular/cdk/drag-drop';
-import {  MatListModule } from '@angular/material/list';
-import { MatSelectModule } from '@angular/material/select';
+import {  FormsModule } from '@angular/forms';  
+import {  MatButtonModule } from '@angular/material/button';
+import {  MatSelectModule } from '@angular/material/select';
+import {  MatDividerModule  } from '@angular/material/divider';
+
+
 @NgModule({
   exports: [
     // cdk
-    DragDropModule,
-    // Material
-    MatListModule,
-    // select option
-    MatSelectModule
+    DragDropModule
   ]
 })
 export class MaterialModule {}
@@ -25,8 +25,13 @@ export class MaterialModule {}
     BrowserModule,
     CommonModule,
     MaterialModule,
+    MatButtonModule,
+    MatSelectModule,
+    FormsModule,
+    MatDividerModule,
     BrowserAnimationsModule
   ],
+
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   providers: []
