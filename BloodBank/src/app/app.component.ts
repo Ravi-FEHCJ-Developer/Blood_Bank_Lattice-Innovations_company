@@ -54,6 +54,7 @@ export class AppComponent implements OnInit
       className : splitedData[1]
     }
     this.Blood_bottles.push(NewData);
+    
     $(document).ready(function(){
       $(".userform").css("display", "block");
     });  

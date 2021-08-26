@@ -10,10 +10,13 @@ input::-webkit-inner-spin-button
 {
   font-size: 3rem;
 }
+
 .primary-title, h1
 {
   color: #282828 !important;
 }
+
+
 /deep/ .mat-form-field-flex 
 {
   background-color: white !important;
@@ -73,10 +76,7 @@ mat-label
   color: #0e0e0e !important;
 }
 
-.mat-raised-button
-{
-    /* width: ;  */
-}
+
 
 
 .row 
