@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatList } from '@angular/material/list';
-import {
-  CdkDragStart,
-  CdkDragDrop
-} from '@angular/cdk/drag-drop';
+import { CdkDragStart, CdkDragDrop } from '@angular/cdk/drag-drop';
 import {  NgForm, NgModel } from '@angular/forms';
 
 declare var $: any;
@@ -37,27 +34,35 @@ export class AppComponent implements OnInit
   // Bottle Counter
   select_bootles : any[] = [];
 
-  // newRepo: any[]=[]
-
-  // getbg : string = ""
-  
   // BB repository
   Blood_bottles : any[] = [];
 
+
+  // Create new repository
   CreateRepository(form:NgForm)
   {
     let splitedData = form.value.bloodgroup.split(' ');
-    const NewData = 
-    {
-      bg : splitedData[0],
-      count : form.value.bloodgroupbootle,
-      className : splitedData[1]
-    }
-    this.Blood_bottles.push(NewData);
     
-    $(document).ready(function(){
-      $(".userform").css("display", "block");
-    });  
+    if(this.Blood_bottles.find( (v) => v.className === splitedData[1].className))
+    {
+      alert("Blood Group is already present");
+    }
+    else
+    {
+      const NewData = 
+      {
+        bg : splitedData[0],
+        count : form.value.bloodgroupbootle,
+        className : splitedData[1]
+      }
+      this.Blood_bottles.push(NewData);
+      console.log(this.Blood_bottles)
+      $(document).ready(function(){
+        $(".userform").css("display", "block");
+      });
+    }
+        
+      
   }  
   
 
