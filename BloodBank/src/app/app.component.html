@@ -1,6 +1,6 @@
 
 
-
+<!-- For Admin -->
 <div class="container">
   <div class="form-group px-5 py-5 text-center">
     <span class="primary-title">Add Blood To Repository</span>
@@ -23,9 +23,9 @@
           </mat-select>
         </mat-form-field>
       </div>  
-      <div class="w-75 p-3 form-froup text-center d-flex flex-wrap justify-content-evenly align-items-center">
+      <div class="w-75 p-3 form-group text-center d-flex flex-wrap justify-content-evenly align-items-center">
         <label class="w-10">ENTER BOTTLES</label>
-        <input class="w-75 form-control h-100" type="number" placeholder="---Number Of Bottles---" ngModel name="bloodgroupbootle" #bloodgroupbootle="ngModel" >
+        <input class="w-75 form-control h-100" type="number" [class.is-invalid]="bloodgroupbootle.invalid && bloodgroupbootle.touched" pattern="[0-9]+" placeholder="---Number Of Bottles---" ngModel name="bloodgroupbootle" #bloodgroupbootle="ngModel" required>
       </div>  
     </div>
     <div class="form-group text-center">  
@@ -35,6 +35,8 @@
 </div>
 
 
+
+<!-- For User -->
 <div class="container userform">
   <h1>BLOOD BANK</h1>
   <mat-divider></mat-divider>
@@ -128,6 +130,3 @@
         </div>
       </div>
     </div>
-
-    <!-- <button class="w-25" mat-raised-button color="warn">route</button>
-    <router-outlet></router-outlet> -->

@@ -1,7 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MatList } from '@angular/material/list';
 import { CdkDragStart, CdkDragDrop } from '@angular/cdk/drag-drop';
-import {  NgForm, NgModel } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 
 declare var $: any;
 
@@ -13,7 +13,6 @@ declare var $: any;
 
 export class AppComponent implements OnInit
 {
-  
   ngOnInit() 
   {
     if(this.Blood_bottles.length === 0)
@@ -43,7 +42,7 @@ export class AppComponent implements OnInit
   {
     let splitedData = form.value.bloodgroup.split(' ');
     
-    if(this.Blood_bottles.find( (v) => v.className === splitedData[1].className))
+    if(this.Blood_bottles.some( (v) => v.className === splitedData[1]))
     {
       alert("Blood Group is already present");
     }
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit
         className : splitedData[1]
       }
       this.Blood_bottles.push(NewData);
-      console.log(this.Blood_bottles)
       $(document).ready(function(){
         $(".userform").css("display", "block");
       });
@@ -158,4 +156,5 @@ export class AppComponent implements OnInit
       // call function to get remaining bottles in the repository.
       this.Store_Remaining_bottle()
     }
-}
+
+  }

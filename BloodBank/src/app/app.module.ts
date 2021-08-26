@@ -1,6 +1,7 @@
 import {  BrowserModule } from '@angular/platform-browser';
-import {  NgModule } from '@angular/core';
+import {  Component, NgModule } from '@angular/core';
 import {  CommonModule } from '@angular/common';
+import {  Routes, RouterModule } from '@angular/router';
 
 import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  AppComponent } from './app.component';
@@ -31,10 +32,12 @@ export class MaterialModule {}
     MatSelectModule,
     FormsModule,
     MatDividerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    // RouterModule.forRoot(routes)
   ],
 
-  declarations: [AppComponent],
+  declarations: [	AppComponent
+   ],
   bootstrap: [AppComponent],
   providers: []
 })
